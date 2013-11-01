@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Art Director - Selector Module</title>
+  <title>Art Director</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
   <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.0.0/css/bootstrap.min.css">
@@ -14,20 +14,18 @@
 
   <div class="navbar navbar-default navbar-fixed-top navbar-inverse">
     <div class="navbar-header">
-      <a class="navbar-brand" href="#">Art Director - Selector Module</a>
+      <a class="navbar-brand" href="#">Art Director</a>
     </div>
     <ul class="nav navbar-nav">
-      <li><a href="upload.html">Upload</a></li>
-      <li><a href="selector.html">Selector</a></li>
+      <li><a href="index.html">Selector</a></li>
     </ul>
   </div>
 
 
 
   <header class="container">
-
+    <h2>Breakpoint Editor</h2>
   </header>
-
 
 
 
@@ -38,19 +36,32 @@
       <!-- Left Column -->
       <div class="col-xs-12 col-md-8">
 
+
+        <!-- Editor Module -->
         <div class="panel panel-default">
           <div class="panel-heading">
             <h2 class="panel-title">Editor</h2>
           </div>
           <div class="panel-body">
 
-            <!-- Editor Module -->
             <div class="editor js-editor">
               <img class="image js-editor-image" src="assets/img/lorempixel.jpg">
-            </div> <!-- /Editor Module -->
-          </div>
-        </div>
+            </div>
 
+          </div>
+        </div> <!-- /Editor Module -->
+
+        <!-- View Module -->
+        <div class="panel panel-default">
+          <div class="panel-heading">
+            <h2 class="panel-title">Viewer</h2>
+          </div>
+          <div class="panel-body">
+
+            <div class="viewer  js-viewer"></div>
+
+          </div>
+        </div> <!-- /View Module -->
 
 
       </div> <!-- /Left Column -->
@@ -60,14 +71,29 @@
 
 
         <!-- Breakpoint Selectors Module -->
-        <div class="breakpoint-selector  panel panel-default">
-          <div class="panel-heading">
-            <div class="panel-title">Sidebar</div>
+        <div class="breakpoint-selector  col-xs-6 col-md-12">
+          <div class="panel panel-default">
+            <div class="panel-heading">
+              <div class="panel-title">Breakpoints</div>
+            </div>
+            <ul class="breakpoint-selector__list  list-group">
+              <li class="breakpoint-selector__item  js-clear-selected list-group-item">Clear Selected</li>
+            </ul>
           </div>
-          <ul class="breakpoint-selector__list  list-group">
-            <li class="breakpoint-selector__item  js-clear-selected list-group-item">Clear Selected</li>
-          </ul>
         </div> <!-- /Breakpoint Selector Module -->
+
+        <!-- Action Module -->
+        <div class="col-xs-6 col-md-12">
+          <div class="panel panel-default">
+            <div class="panel-heading">
+              <div class="panel-title">Action List</div>
+            </div>
+            <div class="panel-body">
+              <button class="js-create-images  btn btn-primary">Create Images</button>
+            </div>
+          </div>
+        </div> <!-- /Action Module -->
+
 
 
       </div> <!-- /Right Column -->

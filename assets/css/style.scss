@@ -24,7 +24,7 @@ body {
 .editor-breakpoint__area {
   border: 1px solid $default;
   z-index: 1;
-  opacity: 0.6
+  opacity: 0.6;
 }
 
 .editor-breakpoint__area.is-selected,
@@ -52,4 +52,11 @@ body {
 .breakpoint-selector__item.is-selected .badge {
   color: $primary;
   background-color: #fff;
+}
+
+.viewer {}
+.viewer .viewport {
+  position: relative;
+  overflow: hidden;
+  float: left;
 }

@@ -31,14 +31,14 @@ $(document).ready(function() {
       }
 
       if (!value.r) {
-        console.log('no ratios, use default: '+ ratio_x +' / '+ratio_y)
-        value.x = value.y * (ratio_x / ratio_y)
+        console.log('no ratios, use default: '+ ratio_x +' / '+ratio_y);
+        value.x = value.y * (ratio_x / ratio_y);
       }
     }
 
     if (!value.y) {
-      console.log('no height, use ratios: '+ ratio_x +' / '+ratio_y)
-      value.y = value.x * (ratio_x / ratio_y)
+      console.log('no height, use ratios: '+ ratio_x +' / '+ratio_y);
+      value.y = value.x * (ratio_x / ratio_y);
     }
 
     if (!breakpoints[key].r) {
@@ -71,7 +71,7 @@ $(document).ready(function() {
     })
     .append('<span class="badge">'+key+'</span>')
 
-    .appendTo(editor)
+    .appendTo(editor);
   }
 
 
@@ -101,14 +101,89 @@ $(document).ready(function() {
 
 
 
+  function createImages() {
+    console.log('createImages()');
+
+    // find each area
+    var areas = $('.editor-breakpoint__area');
+
+    $.each(areas, function(key, value) {
+      createImage(value);
+    });
+
+  }
+
+  function createImage(value) {
+    console.log('createImage()');
+
+    // get breakpoint
+    var breakpoint = getBreakpoint(value);
+    if (!breakpoint) {
+      console.log('breakpoint does not exist');
+    }
+
+    var viewportWidth  = value.offsetWidth,  // viewport width
+        viewportHeight = value.offsetHeight, // viewport height
+        viewportX      = value.offsetLeft,   // viewport x
+        viewportY      = value.offsetHeight, // viewport y
+        viewportDefaultWidth = breakpoints[breakpoint].x, // viewport.default width
+        viewportDefaultHeight = breakpoints[breakpoint].y // viewport.default height
+        ;
+
+
+
+
+    viewportBase = ((viewportDefaultWidth / viewportWidth));
+    console.log(viewportBase);
 
 
 
 
 
+    // create image
+    $('<div/>', {
+      class: 'viewport'
+    })
+    .css({
+      width: viewportDefaultWidth,
+      height: viewportDefaultHeight,
+    })
+    .append(
+      $('<img/>', {
+        src: editorImage.src
+      })
+      .css({
+        position: 'absolute',
+        top: ((value.offsetTop / multiplier) * (-1)),
+        left: ((value.offsetLeft / multiplier) * (-1)),
+        width: editorImage.naturalWidth * viewportBase
+      })
+    )
+    .appendTo('.js-viewer')
+    ;
+  }
+
+  function clearImages() {
+    console.log('clearImages()');
+
+    $('.js-viewer .viewport').remove()
+  }
 
 
 
+  function getBreakpoint(classes) {
+    // compare list of classes to breakpoints object
+    // if class exists as a object key
+    // return key
+    var breakpoint = null;
+    $.each(classes.classList, function(key, value) {
+      if (breakpoints[value]) {
+        breakpoint = value;
+      }
+    });
+
+    return breakpoint;
+  }
 
 
 
@@ -132,11 +207,13 @@ $(document).ready(function() {
         x: 1,
         y: 1,
       }
-    },
+    }/*
+,
     bp2: {
       y: 360
     }
-  }
+*/
+  };
 
 
 
@@ -166,8 +243,14 @@ $(document).ready(function() {
 
 
   $.each(breakpoints, function( key, value) {
-    createSelector(key, value, multiplier)
-    selectorList(key, breakpoints)
+    createSelector(key, value, multiplier);
+    selectorList(key, breakpoints);
+  });
+
+
+  $('.js-create-images').click(function() {
+    clearImages();
+    createImages();
   });
 
 
