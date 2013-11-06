@@ -23,7 +23,7 @@ var SelectPanel =
     DEBUG && console.log('SelectPanel.init()');
 
 
-    this.selectListGroup = $('.js-select-list');
+    this.selectListGroup = $('.js-selectList-list');
     this.clearSelected();
   },
 
@@ -36,7 +36,7 @@ var SelectPanel =
 
 
     // find all 'js-clear-selected' buttons
-    var button = $('button.js-clear-selected');
+    var button = $('button.js-selectList-btnClearSelected');
 
     // multiple buttons
     if (button.length > 1) {
@@ -81,7 +81,7 @@ var SelectPanel =
     .append('<span class="badge">'+ArtDirector.breakpoints[key].width + ' x ' + ArtDirector.breakpoints[key].height +'</span>')
 
     // add list item to list
-    .appendTo('.js-select-list');
+    .appendTo('.js-selectList-list');
   },
 
   /**

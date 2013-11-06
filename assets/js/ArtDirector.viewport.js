@@ -3,13 +3,26 @@
  */
 var Viewport =
 {
+
+  /**
+   * @property button
+   */
+  btnCreateImages: null,
+
   /**
    * @method init
    */
   init: function()
   {
 
-  }
+    this.btnCreateImages = $('.js-viewport-btnCreateImages');
+  },
+
+  /**
+   * @method createImages
+   **/
+
+
 }
 
 
