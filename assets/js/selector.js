@@ -25,7 +25,7 @@ var ArtDirector =
    */
   init: function(params)
   {
-    console.log('ArtDirector.init()');
+    DEBUG && console.log('ArtDirector.init()');
 
     $.each(params, function(key, value) {
       ArtDirector[key] = value;
@@ -78,11 +78,11 @@ var ArtDirector =
    */
   checkRatioWidth: function(key, ratioWidth)
   {
-    console.log('ArtDirector.checkRatioWidth('+key+')');
+    DEBUG && console.log('ArtDirector.checkRatioWidth('+key+')');
 
     // no width ratio
     if (!ratioWidth) {
-      console.log('ArtDirector.checkRatioWidth('+key+') --> use default width ratio');
+      DEBUG && console.log('ArtDirector.checkRatioWidth('+key+') --> use default width ratio');
 
       // return default width Ratio
       return ArtDirector.defaultRatioWidth;
@@ -97,11 +97,11 @@ var ArtDirector =
    */
   checkRatioHeight: function(key, ratioHeight)
   {
-    console.log('ArtDirector.checkRatioHeight('+key+')');
+    DEBUG && console.log('ArtDirector.checkRatioHeight('+key+')');
 
     // no height ratio
     if (!ratioHeight) {
-      console.log('ArtDirector.checkRatioHeight('+key+') --> use default height ratio');
+      DEBUG && console.log('ArtDirector.checkRatioHeight('+key+') --> use default height ratio');
 
       // return default height Ratio
       return ArtDirector.defaultRatioHeight;
@@ -116,12 +116,12 @@ var ArtDirector =
    */
   checkBreakpointWidth: function(key, width)
   {
-    console.log('ArtDirector.checkBreakpointWidth('+key+')');
+    DEBUG && console.log('ArtDirector.checkBreakpointWidth('+key+')');
 
     // no width
     if (!width)
     {
-      console.log('ArtDirector.checkBreakpointWidth('+key+') --> no width');
+      DEBUG && console.log('ArtDirector.checkBreakpointWidth('+key+') --> no width');
 
       // return
       return false;
@@ -136,12 +136,12 @@ var ArtDirector =
    */
   checkBreakpointHeight: function(key, height)
   {
-    console.log('ArtDirector.checkBreakpointHeight('+key+')');
+    DEBUG && console.log('ArtDirector.checkBreakpointHeight('+key+')');
 
     // no height
     if (!height)
     {
-      console.log('ArtDirector.checkBreakpointHeight('+key+') --> no height');
+      DEBUG && console.log('ArtDirector.checkBreakpointHeight('+key+') --> no height');
 
       // return
       return false;
@@ -156,7 +156,7 @@ var ArtDirector =
    */
   deleteBreakpoint: function(key)
   {
-    console.log('ArtDirector.deleteBreakpoint('+key+') --> no width or height --> delete '+key);
+    DEBUG && console.log('ArtDirector.deleteBreakpoint('+key+') --> no width or height --> delete '+key);
 
     // delete breakpoint from object
     delete ArtDirector.breakpoints[key];
@@ -169,7 +169,7 @@ var ArtDirector =
    */
   solveBreakpointWidth: function(key)
   {
-    console.log('ArtDirector.solveBreakpointWidth('+key+')');
+    DEBUG && console.log('ArtDirector.solveBreakpointWidth('+key+')');
 
     return ArtDirector.breakpoints[key].height * (ArtDirector.breakpoints[key].ratioWidth / ArtDirector.breakpoints[key].ratioHeight);
   },
@@ -179,7 +179,7 @@ var ArtDirector =
    */
   solveBreakpointHeight: function(key)
   {
-    console.log('ArtDirector.solveBreakpointHeight('+key+')');
+    DEBUG && console.log('ArtDirector.solveBreakpointHeight('+key+')');
 
     return ArtDirector.breakpoints[key].width * (ArtDirector.breakpoints[key].ratioWidth / ArtDirector.breakpoints[key].ratioHeight);
   },
@@ -190,7 +190,7 @@ var ArtDirector =
    */
   clearSelected: function()
   {
-    console.log('ArtDirector.clearSelected()');
+    DEBUG && console.log('ArtDirector.clearSelected()');
 
     // find all 'is-selected' and remove class
     $('.is-selected').removeClass('is-selected');
@@ -225,7 +225,7 @@ var Editor =
    */
   init: function()
   {
-    console.log('Editor.init()');
+    DEBUG && console.log('Editor.init()');
 
 
     this.getEditorArea();
@@ -238,7 +238,7 @@ var Editor =
    */
   getEditorArea: function()
   {
-    console.log('Editor.getEditorArea()');
+    DEBUG && console.log('Editor.getEditorArea()');
 
 
     // find all 'js-editor'
@@ -247,7 +247,7 @@ var Editor =
     // found multiple 'js-editor'
     if (editorArea.length > 1)
     {
-      console.log('multiple editorAreas found, using first one');
+      DEBUG && console.log('multiple editorAreas found, using first one');
 
       // return only the first one
       editorArea = editorArea.get(0);
@@ -263,7 +263,7 @@ var Editor =
    */
   getEditorImage: function()
   {
-    console.log('Editor.getEditorImage()');
+    DEBUG && console.log('Editor.getEditorImage()');
 
     // find all 'js-editor-image'
     var editorImage = $('img.js-editor-image');
@@ -271,7 +271,7 @@ var Editor =
     // found multiple 'js-editor-image
     if (editorImage.length > 1)
     {
-      console.log('multiple editorImages found, using first one');
+      DEBUG && console.log('multiple editorImages found, using first one');
 
       // return only the first one
       editorImage = editorImage.get(0);
@@ -287,13 +287,13 @@ var Editor =
    */
   findMultiplier: function()
   {
-    console.log('Editor.findMultiplier()');
+    DEBUG && console.log('Editor.findMultiplier()');
 
     // require editorArea
     // require editorImage
     if (!this.editorArea || !this.editorImage)
     {
-      console.log('multiplier could not be established, missing requirements');
+      DEBUG && console.log('multiplier could not be established, missing requirements');
     }
 
     // define multipler as decimal percent - eg. 0.8 = 80%
@@ -305,7 +305,7 @@ var Editor =
    */
   createEditorArea: function(key, value)
   {
-    console.log('Editor.createEditorArea()');
+    DEBUG && console.log('Editor.createEditorArea()');
 
     // element
     $('<div/>', {
@@ -379,7 +379,7 @@ var SelectPanel =
    */
   init: function()
   {
-    console.log('SelectPanel.init()');
+    DEBUG && console.log('SelectPanel.init()');
 
 
     this.selectListGroup = $('.js-select-list');
@@ -391,7 +391,7 @@ var SelectPanel =
    */
   clearSelected: function()
   {
-    console.log('SelectPanel.clearSelected()');
+    DEBUG && console.log('SelectPanel.clearSelected()');
 
 
     // find all 'js-clear-selected' buttons
@@ -399,7 +399,7 @@ var SelectPanel =
 
     // multiple buttons
     if (button.length > 1) {
-      console.log('multiple clear selected buttons found');
+      DEBUG && console.log('multiple clear selected buttons found');
     }
 
     // assign SelectList.ButtonClearSelected to found button
@@ -509,7 +509,7 @@ $(document).ready(function() {
 
 
   function createImages() {
-    console.log('createImages()');
+    DEBUG && console.log('createImages()');
 
     // find each area
     var areas = $('.editor-breakpoint__area');
@@ -521,12 +521,12 @@ $(document).ready(function() {
   }
 
   function createImage(value) {
-    console.log('createImage()');
+    DEBUG && console.log('createImage()');
 
     // get breakpoint
     var breakpoint = getBreakpoint(value);
     if (!breakpoint) {
-      console.log('breakpoint does not exist');
+      DEBUG && console.log('breakpoint does not exist');
     }
 
     var viewportWidth  = value.offsetWidth,  // viewport width
@@ -541,7 +541,7 @@ $(document).ready(function() {
 
 
     viewportBase = ((viewportDefaultWidth / viewportWidth));
-    console.log(viewportBase);
+    DEBUG && console.log(viewportBase);
 
 
 
@@ -571,7 +571,7 @@ $(document).ready(function() {
   }
 
   function clearImages() {
-    console.log('clearImages()');
+    DEBUG && console.log('clearImages()');
 
     $('.js-viewer .viewport').remove()
   }

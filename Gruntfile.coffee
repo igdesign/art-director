@@ -47,9 +47,13 @@ module.exports = (grunt) ->
     uglify:
       options:
         report: 'gzip'
+        compress:
+          global_defs:
+            "DEBUG": false
+          dead_code: true
       build:
         expand: true
-        flatten: true
+        # flatten: true
         cwd: 'tmp/js/'
         src: '**/*.js'
         dest: '_build/assets/js/'
@@ -165,4 +169,5 @@ module.exports = (grunt) ->
 
   grunt.registerTask 'css:dev',    ['sass', 'autoprefixer', 'copy:css', 'copy:css_dev']
   grunt.registerTask 'js:dev',     ['coffee', 'copy:js', 'copy:js_dev']
+  grunt.registerTask 'js:dist',    ['coffee', 'copy:js', 'uglify']
   grunt.registerTask 'media:dev',  ['copy:images', 'copy:images_dev']
