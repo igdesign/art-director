@@ -5,89 +5,109 @@ var Viewport =
 {
 
   /**
-   * @property button
+   * @property btnCreateImages
    */
   btnCreateImages: null,
+
+  /**
+   * @property viewportAreas
+   */
+  viewportAreas: null,
 
   /**
    * @method init
    */
   init: function()
   {
+    DEBUG && console.log('Viewport.init()');
 
+    // find all buttons
     this.btnCreateImages = $('.js-viewport-btnCreateImages');
+
+    // give buttons click functions
+    this.btnCreateImages.click(function() {
+      Viewport.createImages();
+    });
+
+
   },
 
   /**
    * @method createImages
    **/
-
-
-}
-
-
-
-/**
-
-
-  /**
-   * @method getBreakpoint
-   * /
-  getBreakpoint: function(classes)
+  createImages: function()
   {
-    var breakpoint = null;
-    $.each(classes.classList, function(key, value) {
-      if (ArtDirector.breakpoints[value]) {
-        breakpoint = value;
-      }
-    });
-
-    return breakpoint;
-  }
-
-
-
- OLD STUFF
-
-
-
-
-
-  function createImages() {
-    DEBUG && console.log('createImages()');
+    DEBUG && console.log('Viewport.createImages()');
 
     // find each area
     var areas = $('.editor-breakpoint__area');
 
+    // create image for each area found
     $.each(areas, function(key, value) {
-      createImage(value);
+
+      Viewport.clearImages();
+
+      Viewport.createImage(value);
     });
+  },
 
-  }
+  /**
+   * @method clearImages
+   */
+  clearImages: function()
+  {
+    DEBUG && console.log('Viewport.clearImages()');
 
-  function createImage(value) {
-    DEBUG && console.log('createImage()');
+    $('.js-viewport-viewer .viewport').remove()
+  },
 
-    // get breakpoint
-    var breakpoint = getBreakpoint(value);
-    if (!breakpoint) {
-      DEBUG && console.log('breakpoint does not exist');
+  /**
+   * @method createImage
+   */
+  createImage: function(value)
+  {
+    DEBUG && console.log('Viewport.createImage()');
+
+    // determin breakpoint
+    var breakpoint = ArtDirector.getBreakpoint(value);
+
+    // no breakpoint found
+    if (!breakpoint)
+    {
+      DEBUG && console.log('Viewport.createImage() --> no breakpoint found');
+
+      return;
     }
 
-    var viewportWidth  = value.offsetWidth,  // viewport width
-        viewportHeight = value.offsetHeight, // viewport height
-        viewportX      = value.offsetLeft,   // viewport x
-        viewportY      = value.offsetHeight, // viewport y
-        viewportDefaultWidth = breakpoints[breakpoint].width, // viewport.default width
-        viewportDefaultHeight = breakpoints[breakpoint].height // viewport.default height
+    console.log('');console.log('---------------------------');console.log('');
+
+
+        // offsetTop
+    var selectorTop    = value.offsetTop
+        // editorWidth - offsetLeft - width
+      , selectorRight  = Editor.editorArea.offsetWidth - value.offsetWidth - value.offsetLeft
+        // editorHeight - height - offsetTop
+      , selectorBottom = Editor.editorArea.offsetHeight - value.offsetHeight - value.offsetTop
+        // offsetLeft
+      , selectorLeft   = value.offsetLeft
+
+        // viewportTop = editorTop * viewportHeight / editorHeight
+        viewportTop    = selectorTop * ArtDirector.breakpoints[breakpoint].height / value.offsetHeight
+        // viewportRight = ((editorRight + 1) * viewportWidth / editorWidth) - 1
+      , viewportRight  = ((selectorRight + 1) * ArtDirector.breakpoints[breakpoint].width / value.offsetWidth) - 1
+        // viewportBottom = ((editorBottom + 1) * viewportHeight / editorHeight) - 1
+      , viewportBottom = ((selectorBottom + 1) * ArtDirector.breakpoints[breakpoint].height / value.offsetHeight) - 1
+        // viewportLeft = editorLeft * viewportLeft / editorLeft
+      , viewportLeft   = selectorLeft * ArtDirector.breakpoints[breakpoint].width / value.offsetWidth
         ;
 
+      console.log(selectorTop);
+      console.log(selectorTop, selectorRight, selectorBottom, selectorLeft);
+      console.log(viewportTop, viewportRight, viewportBottom, viewportLeft);
 
 
 
-    viewportBase = ((viewportDefaultWidth / viewportWidth));
-    DEBUG && console.log(viewportBase);
-
+    console.log('');console.log('---------------------------');console.log('');
 
 
 
@@ -97,33 +117,25 @@ var Viewport =
       class: 'viewport'
     })
     .css({
-      width: viewportDefaultWidth,
-      height: viewportDefaultHeight,
+      width: ArtDirector.breakpoints[breakpoint].width,
+      height: ArtDirector.breakpoints[breakpoint].height
     })
     .append(
       $('<img/>', {
-        src: editorImage.src
+        src: Editor.editorImage.src
       })
       .css({
         position: 'absolute',
-        top: ((value.offsetTop / multiplier) * (-1)),
-        left: ((value.offsetLeft / multiplier) * (-1)),
-        width: editorImage.naturalWidth * viewportBase
+        width: Editor.editorImage.naturalWidth * imageScaler,
+        top: value.offsetTop * -1,
+        left: value.offsetLeft * -1
+/*         top: area.offsetTop * mu * -1, */
+/*         left: area.offsetLeft * -1, */
+/*         width: (Editor.editorImage.width / mu ) * theta */
       })
     )
-    .appendTo('.js-viewer')
+    .appendTo('.js-viewport-viewer')
     ;
   }
 
-  function clearImages() {
-    DEBUG && console.log('clearImages()');
-
-    $('.js-viewer .viewport').remove()
-  }
-
-
-  $('.js-create-images').click(function() {
-    clearImages();
-    createImages();
-  });
- */
+}

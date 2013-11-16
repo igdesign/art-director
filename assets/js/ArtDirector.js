@@ -72,6 +72,7 @@ var ArtDirector =
     // initialize other parts of the application
     Editor.init();
     SelectPanel.init();
+    Viewport.init();
   },
 
   /**
@@ -195,6 +196,28 @@ var ArtDirector =
 
     // find all 'is-selected' and remove class
     $('.is-selected').removeClass('is-selected');
+  },
+
+  /**
+   * @method getBreakpoint
+   */
+  getBreakpoint: function(element)
+  {
+    DEBUG && console.log('ArtDirector.getBreakpoint()');
+
+    var breakpoint = null;
+
+    // check each class against defined breakpoint names
+    $.each(element.classList, function(key, value) {
+
+      // if class === breakpoint name
+      if (ArtDirector.breakpoints[value]) {
+
+        breakpoint = value;
+      }
+    });
+
+    return breakpoint;
   }
 
 
