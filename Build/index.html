@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Art Director</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.0.0/css/bootstrap.min.css">
+  <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/jqueryui/1.10.3/css/base/jquery.ui.all.css">
+  <link rel="stylesheet" href="assets/css/style.css">
+</head>
+
+<body>
+
+  <div class="navbar navbar-default navbar-fixed-top navbar-inverse">
+    <div class="navbar-header">
+      <a class="navbar-brand" href="#">Art Director</a>
+    </div>
+  </div>
+
+
+
+  <header class="container">
+    <h2>Breakpoint Editor</h2>
+  </header>
+
+
+
+
+  <div class="container">
+    <div class="row">
+
+      <!-- Left Column -->
+      <div class="col-xs-12 col-md-8">
+
+
+        <!-- Editor Module -->
+        <div class="panel panel-default">
+          <div class="panel-heading">
+            <h2 class="panel-title">Editor</h2>
+          </div>
+          <div class="panel-body">
+
+            <div class="editor   js-editor">
+              <img class="image   js-editor-image" src="assets/img/lorempixel.jpg">
+            </div>
+
+          </div>
+        </div> <!-- /Editor Module -->
+
+        <!-- View Module -->
+        <div class="panel panel-default">
+          <div class="panel-heading clearfix">
+            <div class="panel-title">Viewer
+              <button class="btn btn-primary btn-xs pull-right  js-viewport-btnCreateImages">Create Images</button>
+            </div>
+          </div>
+          <div class="panel-body">
+
+            <div class="viewer   js-viewport-viewer"></div>
+
+          </div>
+        </div> <!-- /View Module -->
+
+
+      </div> <!-- /Left Column -->
+
+      <!-- Right Column -->
+      <div class="col-xs-12 col-md-4">
+
+
+        <!-- Breakpoint Selectors Module -->
+        <div class="breakpoint-selector ">
+          <div class="panel panel-default">
+            <div class="panel-heading clearfix">
+              <div class="panel-title">Breakpoints
+              <button class="btn btn-primary btn-xs pull-right  js-selectList-btnClearSelected">Clear Selected</button>
+              </div>
+            </div>
+            <ul class="breakpoint-selector__list  list-group   js-selectList-list"></ul>
+          </div>
+        </div> <!-- /Breakpoint Selector Module -->
+
+      </div> <!-- /Right Column -->
+
+
+
+    </div>
+  </div>
+
+
+  <footer class="container">
+    <p>&copy; 2013 iG Design &amp; Publishing / Gregory Daynes.</p>
+  </footer>
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+<script>window.jQuery || document.write('<script src="assets/js/jquery-2.0.3.js"><\/script>')</script>
+<script src="//ajax.googleapis.com/ajax/libs/jqueryui/1.10.3/jquery-ui.min.js"></script>
+<script>if (!jQuery.ui) { document.write('<script src="assets/js/jQuery-ui-1.10.3.custom.js"><\/script>') }</script>
+
+<script src="assets/js/ArtDirector.js"></script>
+<script src="assets/js/ArtDirector.editor.js"></script>
+<script src="assets/js/ArtDirector.selectorList.js"></script>
+<script src="assets/js/ArtDirector.viewport.js"></script>
+<script>
+  $(document).ready(function() {
+    ArtDirector.init({
+      defaultRatioWidth: 4,
+      defaultRatioHeight: 3,
+
+      breakpoints: {
+        small: {
+          width: 320,
+          ratioWidth: 1,
+          ratioHeight: 1
+        }/*
+,
+        medium: {
+          width: 480
+        },
+        tablet: {
+          width: 768
+        }
+*/
+      }
+    });
+
+    $.each(ArtDirector.breakpoints, function(key, value) {
+      Editor.createEditorArea(key, value);
+      SelectPanel.createSelectListItem(key);
+    });
+
+  });
+</script>
